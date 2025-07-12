@@ -1,16 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  define: {
-    'process.env': {}
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
-  build: {
-    outDir: 'dist'
-  },
-  server: {
-    port: 5173
-  },
-  base: process.env.GH_PAGES ? '/' + (process.env.GH_REPO || '') + '/' : '/'
+  base: process.env.GH_PAGES
+    ? `/${process.env.GH_REPO}/`
+    : '/',
 })
